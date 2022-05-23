@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { AiOutlineSearch } from 'react-icons/ai'
 import { IoIosNotificationsOutline } from 'react-icons/io'
+import SearchInput from '../components/searchInput'
 const Header = () => {
   const [isMenuChanged, setIsMenuChanged] = useState(false)
-  const [lastScroll,setLastScroll]=useState(0)
+  const [lastScroll, setLastScroll] = useState(0)
   const menu = [
     {
       title: 'Explore',
@@ -36,18 +36,17 @@ const Header = () => {
     } else {
       setIsMenuChanged(false)
     }
-    setLastScroll(window.scrollY); 
-
+    setLastScroll(window.scrollY)
   }
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', scrollMenu);
+      window.addEventListener('scroll', scrollMenu)
 
       return () => {
-        window.removeEventListener('scroll', scrollMenu);
-      };
+        window.removeEventListener('scroll', scrollMenu)
+      }
     }
-  }, [lastScroll]);
+  }, [lastScroll])
   return (
     <div
       className={` z-[9999]   flex h-16 w-full items-center justify-between  px-8  transition-all  ${
@@ -61,16 +60,7 @@ const Header = () => {
           </div>
           <p className="text-xl font-semibold  text-white">Pexels</p>
         </div>
-        {isMenuChanged && (
-          <label className="relative flex  h-[2.8rem] w-[40rem] items-center">
-            <input
-              type="text"
-              className="h-full w-full rounded-md bg-white  px-4 outline-none"
-              placeholder="Search for free photos"
-            />
-            <AiOutlineSearch className="absolute right-4 text-xl text-gray-600" />
-          </label>
-        )}
+        {isMenuChanged && <SearchInput />}
       </div>
       <div className="flex items-center">
         <div className="flex gap-x-6 font-semibold ">
