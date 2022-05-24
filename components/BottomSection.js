@@ -5,7 +5,6 @@ import FullImageView from './FullImageView'
 const BottomSection = ({ images }) => {
   const [modal, setModal] = useState(false)
   const [modalImage, setModalImage] = useState()
-  console.log(modalImage)
   return (
     <div>
       <BottomSectionMenu />

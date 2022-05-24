@@ -15,11 +15,9 @@ const Index = () => {
       .search({ query, per_page: pageCount })
       .then((data) => setImages(data.photos))
   }, [])
-  console.log(images)
   useEffect(() => {
     setBannerImage(images[Math.round(Math.random() * pageCount)])
   }, [images])
-  console.log(bannerImage)
   return (
     <div>
       <div className="relative flex h-[33rem] items-center  justify-center">
