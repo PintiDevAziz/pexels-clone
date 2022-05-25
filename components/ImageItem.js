@@ -1,7 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
-const ImageItem = ({ image, setModal, setModalImage }) => {
+import React, { useEffect } from 'react'
+const ImageItem = ({ image, setModal, setModalImage, modal }) => {
+  useEffect(() => {
+    if (!modal) {
+      setModalImage('')
+    }
+  }, [modal])
   return (
     <Link
       href={`/photo/${
@@ -13,7 +18,7 @@ const ImageItem = ({ image, setModal, setModalImage }) => {
       }`}
     >
       <a
-        className=" relative min-h-[38rem] w-[28rem] cursor-pointer"
+        className=" relative h-[35rem] w-[28rem] cursor-pointer"
         onClick={(e) => {
           e.preventDefault()
           setModal(true)
@@ -22,8 +27,12 @@ const ImageItem = ({ image, setModal, setModalImage }) => {
       >
         <Image
           src={image && image.src.original}
-          alt=""
+          alt={image && image.alt}
           layout="fill"
+          onLoadingComplete={(e) => console.log(e)}
+          priority={true}
+          placeholder={'blur'}
+          blurDataURL={image.src.original}
           className="h-full w-full object-cover"
         />
       </a>

@@ -1,24 +1,23 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { IoIosArrowDown } from 'react-icons/io'
-const FullImageView = ({ modal, setModal, modalImage }) => {
+const FullImageView = ({ modal, setModal, modalImage, firstImage }) => {
   const [srcs, setSrcs] = useState([])
   const [dropdown, setDropDown] = useState(false)
   const [downloadUrl, setDownloadUrl] = useState('')
   const [defaultBlob, setDefaultBlob] = useState('')
   useEffect(() => {
-    if (modal && modalImage) {
+    if (modalImage) {
       setSrcs(Object.entries(modalImage.src))
     }
-    if (srcs.length > 0 && modalImage) {
-      fetch(srcs[0][1])
-        .then((res) => res.blob())
-        .then((data) => setDefaultBlob(URL.createObjectURL(data)))
-    }
+    fetch(firstImage && firstImage.src.original)
+      .then((res) => res.blob())
+      .then((data) => setDefaultBlob(URL.createObjectURL(data)))
     setDownloadUrl('')
   }, [modal])
-
+  console.log(firstImage)
   return (
     <div
       className={`fixed top-0 left-0 z-[99999999] flex h-full w-full items-center bg-black/80 transition-all ${
@@ -43,7 +42,7 @@ const FullImageView = ({ modal, setModal, modalImage }) => {
           </div>
           <div className="flex  h-10 w-48 items-center justify-between rounded bg-[#05A081] px-2 text-white">
             <a
-              download={'file.jpg'}
+              download={'file'}
               href={defaultBlob}
               className="flex w-[80%] items-center justify-center px-2"
             >
@@ -99,11 +98,15 @@ const FullImageView = ({ modal, setModal, modalImage }) => {
             </div>
           </div>
         </div>
-        <img
-          src={modalImage && modalImage.src.original}
-          alt={modalImage && modalImage.alt}
-          className={' mx-auto mt-10 w-[40rem]'}
-        />
+        <div className="relative mx-auto mt-8 h-[40rem] w-[30rem]">
+          <img
+            src={modalImage && modalImage.src.original}
+            placeholder={'blur'}
+            blurDataURL={modalImage && modalImage.src.original}
+            layout={'fill'}
+            alt={modalImage && modalImage.alt}
+          />
+        </div>
       </div>
       <AiOutlineClose
         onClick={() => setModal(false)}

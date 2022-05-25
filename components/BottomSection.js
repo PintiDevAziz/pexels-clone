@@ -8,23 +8,22 @@ const BottomSection = ({ images }) => {
   return (
     <div>
       <BottomSectionMenu />
-      <div className=" mt-6  flex flex-col  ">
-        <h1 className="mb-4 px-36 text-lg font-semibold ">Free Stock Photos</h1>
-        <div className="  masonry sm:masonry-sm md:masonry-md flex   flex-wrap items-center justify-center space-y-4 ">
-          {images &&
-            images.map((image, key) => (
-              <ImageItem
-                setModal={setModal}
-                image={image}
-                key={key}
-                modalImage={modalImage}
-                setModalImage={setModalImage}
-              />
-            ))}
-        </div>
+      <div className=" flex flex-wrap items-end justify-center gap-4  mt-6 ">
+        {images &&
+          images.map((image, key) => (
+            <ImageItem
+              setModal={setModal}
+              image={image}
+              key={key}
+              modal={modal}
+              modalImage={modalImage}
+              setModalImage={setModalImage}
+            />
+          ))}
       </div>
       <FullImageView
         modal={modal}
+        firstImage={images[0]}
         setModal={setModal}
         modalImage={modalImage}
       />
