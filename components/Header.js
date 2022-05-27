@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { IoIosNotificationsOutline } from 'react-icons/io'
-import SearchInput from '../components/searchInput'
-const Header = () => {
+import SearchInput from './SearchInput'
+const Header = ({ query, setQuery, input, setInput }) => {
   const [isMenuChanged, setIsMenuChanged] = useState(false)
   const [lastScroll, setLastScroll] = useState(0)
   const menu = [
@@ -60,7 +60,14 @@ const Header = () => {
           </div>
           <p className="text-xl font-semibold  text-white">Pexels</p>
         </div>
-        {isMenuChanged && <SearchInput />}
+        {isMenuChanged && (
+          <SearchInput
+            query={query}
+            setQuery={setQuery}
+            input={input}
+            setInput={setInput}
+          />
+        )}
       </div>
       <div className="flex items-center">
         <div className="flex gap-x-6 font-semibold ">

@@ -41,14 +41,10 @@ const FullImageView = ({ modal, setModal, modalImage, firstImage }) => {
             </Link>
           </div>
           <div className="flex  h-10 w-48 items-center justify-between rounded bg-[#05A081] px-2 text-white">
-            <a
-              download={'file'}
-              href={defaultBlob}
-              className="flex w-[80%] items-center justify-center px-2"
-            >
+            <a className="flex w-[80%] items-center justify-center px-2">
               Free download
             </a>
-            <div className="  group relative flex h-full w-full flex-1 items-center justify-center border-l border-gray-600">
+            <div className=" z-[99999]  group relative flex h-full w-full flex-1 items-center justify-center border-l border-gray-600">
               <IoIosArrowDown
                 onClick={() => {
                   setDropDown(!dropdown)
@@ -99,13 +95,15 @@ const FullImageView = ({ modal, setModal, modalImage, firstImage }) => {
           </div>
         </div>
         <div className="relative mx-auto mt-8 h-[40rem] w-[30rem]">
-          <img
-            src={modalImage && modalImage.src.original}
-            placeholder={'blur'}
-            blurDataURL={modalImage && modalImage.src.original}
-            layout={'fill'}
-            alt={modalImage && modalImage.alt}
-          />
+          {modalImage ? (
+            <Image
+              src={modalImage.src.original}
+              placeholder={'blur'}
+              blurDataURL={modalImage.src.original}
+              layout={'fill'}
+              alt={modalImage.alt}
+            />
+          ) : null}
         </div>
       </div>
       <AiOutlineClose

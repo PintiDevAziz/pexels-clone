@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 const ImageItem = ({ image, setModal, setModalImage, modal }) => {
   useEffect(() => {
     if (!modal) {
@@ -29,7 +29,6 @@ const ImageItem = ({ image, setModal, setModalImage, modal }) => {
           src={image && image.src.original}
           alt={image && image.alt}
           layout="fill"
-          onLoadingComplete={(e) => console.log(e)}
           priority={true}
           placeholder={'blur'}
           blurDataURL={image.src.original}
