@@ -34,7 +34,7 @@ const Index = ({ query, setQuery, input, setInput }) => {
             />
           </div>
         ) : (
-          <div className="absolute top-0 z-[0] flex h-full w-full items-center justify-center bg-center object-cover">
+          <div className="absolute bg-white top-0 z-[900000] flex h-full w-full items-center justify-center bg-center object-cover">
             <Loader height={200} width={200} />
           </div>
         )}

@@ -3,9 +3,16 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { IoIosNotificationsOutline } from 'react-icons/io'
 import SearchInput from './SearchInput'
-const Header = ({ query, setQuery, input, setInput }) => {
+const Header = ({ query, setQuery, input, setInput, bg }) => {
   const [isMenuChanged, setIsMenuChanged] = useState(false)
   const [lastScroll, setLastScroll] = useState(0)
+  useEffect(() => {
+    if (bg) {
+      setIsMenuChanged(true)
+    } else {
+      setIsMenuChanged(false)
+    }
+  }, [])
   const menu = [
     {
       title: 'Explore',
@@ -31,12 +38,14 @@ const Header = ({ query, setQuery, input, setInput }) => {
     },
   ]
   const scrollMenu = () => {
-    if (window.scrollY > lastScroll) {
-      setIsMenuChanged(true)
-    } else {
-      setIsMenuChanged(false)
+    if (!bg) {
+      if (window.scrollY > lastScroll) {
+        setIsMenuChanged(true)
+      } else {
+        setIsMenuChanged(false)
+      }
+      setLastScroll(window.scrollY)
     }
-    setLastScroll(window.scrollY)
   }
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -49,7 +58,9 @@ const Header = ({ query, setQuery, input, setInput }) => {
   }, [lastScroll])
   return (
     <div
-      className={` z-[9999]   flex h-16 w-full items-center justify-between  px-8  transition-all  ${
+      className={` z-[9999] ${
+        bg ? 'bg-[#232A34] ' : null
+      }   flex h-16 w-full items-center justify-between  px-8  transition-all  ${
         isMenuChanged ? '  fixed top-0  bg-[#232A34]  ' : 'absolute '
       }`}
     >

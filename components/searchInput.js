@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 const SearchInput = ({ size, setQuery, input, setInput }) => {
+  const router = useRouter()
   return (
     <label
       className={`relative flex  ${
@@ -9,6 +11,12 @@ const SearchInput = ({ size, setQuery, input, setInput }) => {
     >
       <input
         type="text"
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            setQuery(input)
+            router.push('/')
+          }
+        }}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         className="h-full w-full rounded-md bg-white  px-4 outline-none"
@@ -16,7 +24,10 @@ const SearchInput = ({ size, setQuery, input, setInput }) => {
       />
       <AiOutlineSearch
         className="absolute right-4 text-xl text-gray-600"
-        onClick={() => setQuery(input)}
+        onClick={() => {
+          setQuery(input)
+          router.push('/')
+        }}
       />
     </label>
   )

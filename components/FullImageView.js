@@ -7,14 +7,11 @@ const FullImageView = ({ modal, setModal, modalImage, firstImage }) => {
   const [srcs, setSrcs] = useState([])
   const [dropdown, setDropDown] = useState(false)
   const [downloadUrl, setDownloadUrl] = useState('')
-  const [defaultBlob, setDefaultBlob] = useState('')
+  const [downloadName, setDownloadName] = useState('file')
   useEffect(() => {
     if (modalImage) {
       setSrcs(Object.entries(modalImage.src))
     }
-    fetch(firstImage && firstImage.src.original)
-      .then((res) => res.blob())
-      .then((data) => setDefaultBlob(URL.createObjectURL(data)))
     setDownloadUrl('')
   }, [modal])
   console.log(firstImage)
@@ -44,7 +41,7 @@ const FullImageView = ({ modal, setModal, modalImage, firstImage }) => {
             <a className="flex w-[80%] items-center justify-center px-2">
               Free download
             </a>
-            <div className=" z-[99999]  group relative flex h-full w-full flex-1 items-center justify-center border-l border-gray-600">
+            <div className=" group  relative z-[99999] flex h-full w-full flex-1 items-center justify-center border-l border-gray-600">
               <IoIosArrowDown
                 onClick={() => {
                   setDropDown(!dropdown)
@@ -68,13 +65,14 @@ const FullImageView = ({ modal, setModal, modalImage, firstImage }) => {
                     <input
                       type="radio"
                       name="type"
-                      value={item[1] || defaultBlob}
+                      value={item[1]}
                       onClick={() => {
                         fetch(item[1])
                           .then((res) => res.blob())
                           .then((blob) =>
                             setDownloadUrl(URL.createObjectURL(blob))
                           )
+                        setDownloadName(item[0])
                       }}
                       className="h-4 w-4 appearance-none rounded-full border-2 checked:bg-[#05A081]"
                     />
@@ -82,11 +80,11 @@ const FullImageView = ({ modal, setModal, modalImage, firstImage }) => {
                   </label>
                 ))}
                 <a
-                  className={`mt-2 flex  h-10 items-center justify-center  border border-[#05A081] font-semibold ${
+                  className={`mt-2 hover:bg-[#05A081] hover:text-white transition-all flex  h-10 items-center justify-center  border border-[#05A081] font-semibold ${
                     !downloadUrl && 'pointer-events-none opacity-50'
                   }`}
                   href={downloadUrl}
-                  download
+                  download={downloadName}
                 >
                   Download{' '}
                 </a>
